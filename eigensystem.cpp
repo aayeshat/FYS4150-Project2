@@ -7,18 +7,10 @@
 using namespace arma;
 using namespace std;
 
-arma::mat create_tridiagonal(int n, double a, double d, double e)
-{
-  arma::vec a_vec = arma::vec(n - 1, arma::fill::ones) * a;
-  arma::vec d_vec = arma::vec(n, arma::fill::ones) * d;
-  arma::vec e_vec = arma::vec(n - 1, arma::fill::ones) * e;
-  return create_tridiagonal(n, a_vec, d_vec, e_vec);
-}
-
-arma::mat create_tridiagonal(int n, const arma::vec &a, const arma::vec &d, const arma::vec &e)
+mat create_tridiagonal(int n, const vec &a, const vec &d, const vec &e)
 {
   // Start from identity matrix
-  arma::mat A = arma::mat(n, n, fill::eye);
+  mat A = mat(n, n, fill::eye);
 
   for (int i = 0; i < n - 1; i++)
   {
@@ -35,11 +27,28 @@ int main()
 
   int n = 6;
 
+  vec a = vec(n - 1).fill(-1.);
+  vec d = vec(n).fill(2.);
+  vec e = vec(n - 1).fill(-1.);
+
   // - all n-1 elements on the subdiagonal have value a
   // - all n elements on the diagonal have value d
   // - all n-1 elements on the superdiagonal have value e
-  arma::mat A = create_tridiagonal(n, -1, 2., -1);
+
+  mat A = create_tridiagonal(n, a, d, e);
   A.print("A = ");
+
+  mat I = A.t() * A; // generate a symmetric matrix
+
+  I.print("I = ");
+
+  vec eigval;
+  mat eigvec;
+
+  eig_sym(eigval, eigvec, A);
+
+  eigval.print("eigval = ");
+  eigvec.print("eigvec = ");
 
   return 0;
 }
