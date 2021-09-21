@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iomanip>
 #include <armadillo>
+#include <assert.h>
 
 using namespace arma;
 using namespace std;
@@ -22,29 +23,43 @@ mat create_tridiagonal(int n, const vec &a, const vec &d, const vec &e)
     return A;
 }
 
-double max_offdiag_symmetric(arma::mat &A, int &p, int &q)
+arma::mat create_tridiagonal(int n, double a, double d, double e)
 {
-    int n = A.size();
-    double max;
+    arma::vec a_vec = arma::vec(n - 1, arma::fill::ones) * a;
+    arma::vec d_vec = arma::vec(n, arma::fill::ones) * d;
+    arma::vec e_vec = arma::vec(n - 1, arma::fill::ones) * e;
+    return create_tridiagonal(n, a_vec, d_vec, e_vec);
+}
+
+double max_offdiag_symmetric(arma::mat A, int &k, int &l)
+{
+
+    assert(A.is_square());
+    int n = sqrt(A.size());
+
+    //assigning minimum value to variable
+    double maxval = -1;
     for (int i = 0; i < n; ++i)
     {
         for (int j = i + 1; j < n; ++j)
         {
             double aij = fabs(A(i, j));
-            if (aij > max)
+            if (aij > maxval)
             {
-                max = aij;
-                p = i;
-                q = j;
+                maxval = aij;
+                k = i;
+                l = j;
             }
         }
     }
-    return max;
+
+    return maxval;
 }
 
 void jacobi_rotate(arma::mat &A, arma::mat &R, int k, int l)
 {
-    int n = A.size();
+    assert(A.is_square());
+    int n = sqrt(A.size());
 
     double s, c;
     if (A(k, l) != 0.0)
@@ -108,23 +123,34 @@ int main()
     mat R;
     eig_sym(eigval, R, I);
 
-   // A.print("A = ");
-   // R.print("R = ");
-    double tolerance = 1.0E-8;
+    A.print("A = ");
+    R.print("R = ");
 
+    int iteration = 0;
     int max_iterations = 5;
-    double max_offdiag = 0;
-    int iterations = 0;
-    while (max_offdiag > tolerance && iterations <= max_iterations)
+
+    double max_offdiag = -1;
+
+    double tolerance = 1;
+    cout << "tolerance = " << iteration << endl;
+
+    for (int iteration = 0; iteration < max_iterations; iteration++)
     {
-        int k, l;
 
-        max_offdiag = max_offdiag_symmetric(A, k, l);
+        cout << "jacobi_rotate iteration = " << iteration << endl;
 
-        jacobi_rotate(A, R, k, l);
+        int i, j;
 
-        iterations++;
-        cout<<"jacobi_rotate"<<jacobi_rotate<<endl;
+        max_offdiag = max_offdiag_symmetric(A, i, j);
+        cout << "max_offdiag ("
+             << "i" << i << "j" << j << ") = " << max_offdiag << endl;
+
+        jacobi_rotate(A, R, i, j);
+
+        if (max_offdiag > tolerance)
+        {
+            break;
+        }
     }
 
     A.print("A = ");
