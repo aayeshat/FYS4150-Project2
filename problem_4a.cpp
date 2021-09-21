@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iomanip>
 #include <armadillo>
+#include <assert.h>
 
 using namespace arma;
 using namespace std;
@@ -25,23 +26,29 @@ mat create_tridiagonal(int n, const vec &a, const vec &d, const vec &e)
 double max_offdiag_symmetric(arma::mat A, int &k, int &l)
 
 {
-    int n = A.size();
-    double max;
+
+    assert(A.is_square());
+
+    int n = sqrt(A.size());
+    cout << "n = " << n << endl;
+
+    //assigning minimum value to variable
+    double maxval = -1;
     for (int i = 0; i < n; ++i)
     {
         for (int j = i + 1; j < n; ++j)
         {
             double aij = fabs(A(i, j));
-            if (aij > max)
+            if (aij > maxval)
             {
-                max = aij;
+                maxval = aij;
                 k = i;
                 l = j;
             }
         }
     }
 
-    return max;
+    return maxval;
 }
 
 int main()
@@ -53,11 +60,17 @@ int main()
     vec d = vec(n).fill(2.);
     vec e = vec(n - 1).fill(-1.);
     mat A = create_tridiagonal(n, a, d, e);
-    mat I = A.t() * A;
+
+   
+
+    int i = 0;
+    int j = 0;
+    double maxval = max_offdiag_symmetric(A, i, j);
 
     A.print("A = ");
 
-    cout<<"max = "<<max_offdiag_symmetric<<endl;
+    cout << "maxval ("
+         << "i" << i << "j" << j << ") = " << maxval << endl;
 
     return 0;
 }
