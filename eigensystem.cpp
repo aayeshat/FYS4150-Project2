@@ -1,3 +1,4 @@
+#include "tridiagonal.hpp"
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -8,20 +9,6 @@
 using namespace arma;
 using namespace std;
 
-mat create_tridiagonal(int n, const vec &a, const vec &d, const vec &e)
-{
-  // Start from identity matrix
-  mat A = mat(n, n, fill::eye);
-
-  for (int i = 0; i < n - 1; i++)
-  {
-    A(i, i) = d(i);
-    A(i, i + 1) = e(i);
-    A(i + 1, i) = a(i);
-  }
-  A(n - 1, n - 1) = d(n - 1);
-  return A;
-}
 
 int main()
 {
@@ -61,5 +48,3 @@ int main()
 
   return 0;
 }
-
-//g++ -c eigensystem.cpp -std=c++11 && g++ -o eigensystem.out eigensystem.o -larmadillo && ./eigensystem.out

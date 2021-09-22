@@ -1,3 +1,5 @@
+#include "tridiagonal.hpp"
+#include "max_offdiag.hpp"
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -6,27 +8,6 @@
 
 using namespace arma;
 using namespace std;
-
-double max_offdiag_symmetric(const arma::mat& A, int& k, int& l)
-{
-    int n = A.size();
-    //int k, l;
-    double maxval;
-    for (int i = 1; i < n - 1 ; ++i)
-    {
-        for (int j = i + 1; j < n - 1; ++j)
-        {
-            double aij = fabs(A(i, j));
-            if (aij > maxval)
-            {
-                maxval = aij;
-                l = i;
-                k = j;
-            }
-        }
-    }
-    return maxval;
-}
 
 int main()
 {
@@ -45,5 +26,3 @@ int main()
 
     return 0;
 }
-
-// g++ -c problem_4b.cpp -std=c++11 && g++ -o problem_4b.out problem_4b.o -larmadillo && ./problem_4b.out
