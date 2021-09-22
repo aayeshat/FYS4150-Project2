@@ -7,7 +7,7 @@
 using namespace arma;
 using namespace std;
 
-mat create_tridiagonal(int n, const vec &a, const vec &d, const vec &e)
+mat create_jacobional(int n, const vec &a, const vec &d, const vec &e)
 {
     // Start from identity matrix
     mat A = mat(n, n, fill::eye);
@@ -22,7 +22,7 @@ mat create_tridiagonal(int n, const vec &a, const vec &d, const vec &e)
     return A;
 }
 
-double max_offdiag_symmetric(arma::mat &A, int &p, int &q)
+double max_offdiag_symmetric(arma::mat &A, int &k, int &l)
 {
     int n = A.size();
     double max;
@@ -34,8 +34,8 @@ double max_offdiag_symmetric(arma::mat &A, int &p, int &q)
             if (aij > max)
             {
                 max = aij;
-                p = i;
-                q = j;
+                k = i;
+                l = j;
             }
         }
     }
@@ -102,7 +102,7 @@ int main()
     vec a = vec(n - 1).fill(-1.);
     vec d = vec(n).fill(2.);
     vec e = vec(n - 1).fill(-1.);
-    mat A = create_tridiagonal(n, a, d, e);
+    mat A = create_jacobional(n, a, d, e);
     mat I = A.t() * A;
     vec eigval;
     mat R;
@@ -131,3 +131,6 @@ int main()
     R.print("R = ");
     return 0;
 }
+
+
+//g++ -c jacobi.cpp -std=c++11 && g++ -o jacobi.out jacobi.o -larmadillo && ./jacobi.out

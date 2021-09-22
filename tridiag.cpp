@@ -7,14 +7,6 @@
 using namespace arma;
 using namespace std;
 
-arma::mat create_tridiagonal(int n, double a, double d, double e)
-{
-  arma::vec a_vec = arma::vec(n - 1, arma::fill::ones) * a;
-  arma::vec d_vec = arma::vec(n, arma::fill::ones) * d;
-  arma::vec e_vec = arma::vec(n - 1, arma::fill::ones) * e;
-  return create_tridiagonal(n, a_vec, d_vec, e_vec);
-}
-
 arma::mat create_tridiagonal(int n, const arma::vec &a, const arma::vec &d, const arma::vec &e)
 {
   // Start from identity matrix
@@ -30,6 +22,14 @@ arma::mat create_tridiagonal(int n, const arma::vec &a, const arma::vec &d, cons
   return A;
 }
 
+arma::mat create_tridiagonal(int n, double a, double d, double e)
+{
+  arma::vec a_vec = arma::vec(n - 1, arma::fill::ones) * a;
+  arma::vec d_vec = arma::vec(n, arma::fill::ones) * d;
+  arma::vec e_vec = arma::vec(n - 1, arma::fill::ones) * e;
+  return create_tridiagonal(n, a_vec, d_vec, e_vec);
+}
+
 int main()
 {
 
@@ -41,5 +41,12 @@ int main()
   arma::mat A = create_tridiagonal(n, -1, 2., -1);
   A.print("A = ");
 
+  mat B =
+  vec eigval;
+  vec eigvec;
+  eig_sym(eig_val, eigvec, B)
+
   return 0;
 }
+
+//g++ -c tridiag.cpp -std=c++11 && g++ -o tridiag.out tridiag.o -larmadillo && ./tridiag.out
