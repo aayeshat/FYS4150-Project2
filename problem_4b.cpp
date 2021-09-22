@@ -23,8 +23,15 @@ mat create_tridiagonal(int n, const vec &a, const vec &d, const vec &e)
     return A;
 }
 
-double max_offdiag_symmetric(arma::mat A, int &k, int &l)
+arma::mat create_tridiagonal(int n, double a, double d, double e)
+{
+    arma::vec a_vec = arma::vec(n - 1, arma::fill::ones) * a;
+    arma::vec d_vec = arma::vec(n, arma::fill::ones) * d;
+    arma::vec e_vec = arma::vec(n - 1, arma::fill::ones) * e;
+    return create_tridiagonal(n, a_vec, d_vec, e_vec);
+}
 
+double max_offdiag_symmetric(arma::mat A, int &k, int &l)
 {
 
     assert(A.is_square());
@@ -54,20 +61,25 @@ double max_offdiag_symmetric(arma::mat A, int &k, int &l)
 int main()
 {
 
-    int n = 6;
+    int n = 4;
 
-    vec a = vec(n - 1).fill(-1.);
-    vec d = vec(n).fill(2.);
-    vec e = vec(n - 1).fill(-1.);
-    mat A = create_tridiagonal(n, a, d, e);
+    arma::mat A = arma::mat(n, n, fill::eye);
+    A(0, 0) = 1;
+    A(0, 1) = 0;
+    A(0, 3) = 0.5;
 
-   
+    A(1, 2) = -0.7;
+
+    A(2, 1) = -0.7;
+    A(2, 3) = 0;
+
+    A(3, 0) = 0.5;
+
+    A.print("A = ");
 
     int i = 0;
     int j = 0;
     double maxval = max_offdiag_symmetric(A, i, j);
-
-    A.print("A = ");
 
     cout << "maxval ("
          << "i" << i << "j" << j << ") = " << maxval << endl;
