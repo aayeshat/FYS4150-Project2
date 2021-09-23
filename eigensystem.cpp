@@ -37,13 +37,14 @@ int main()
 
   //Analytical solutions to eigenvalues
   double pi = 3.14159265358979323846;
+  double cos_arg = pi/(n + 1.0);
 
   //Eigenvectors
   for (int i = 0; i < n ; ++i){
     vec eigvals_analytical = vec(n);
-    eigvals_analytical(i) = d(i) + 2*a(i)*cos((i)*pi/(n + 1));
-    i += 1;
-    cout << eigvals_analytical << endl;
+    eigvals_analytical(i) = d(i) + 2*a(i)*cos((cos_arg)*(i + 1));
+  cout << "analytical =" << endl << eigvals_analytical << endl;
+  //eigvals_analytical.print("Analytical eigenvalues = ");
   }
 
   return 0;
