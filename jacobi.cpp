@@ -30,11 +30,11 @@ int main()
     R.print("R = ");
 
     int iteration = 0;
-    int max_iterations = 5;
+    int max_iterations = 1000;
+    int i, j;
+    double max_offdiag = max_offdiag_symmetric(A, i, j);
 
-    double max_offdiag = -1;
-
-    double tolerance = 1;
+    double tolerance = 1E-8;
     cout << "tolerance = " << iteration << endl;
 
     for (int iteration = 0; iteration < max_iterations; iteration++)
@@ -42,15 +42,15 @@ int main()
 
         cout << "jacobi_rotate iteration = " << iteration << endl;
 
-        int i, j;
-
+        
+        jacobi_rotate(A, R, i, j);
         max_offdiag = max_offdiag_symmetric(A, i, j);
         cout << "max_offdiag ("
              << "i" << i << "j" << j << ") = " << max_offdiag << endl;
 
-        jacobi_rotate(A, R, i, j);
+       // jacobi_rotate(A, R, i, j);
 
-        if (max_offdiag > tolerance)
+        if (max_offdiag < tolerance)
         {
             break;
         }
