@@ -48,7 +48,7 @@ void jacobi_rotate(arma::mat &A, arma::mat &R, int k, int l)
             A(i, l) = c * a_il + s * a_ik;
             A(l, i) = A(i, l);
         }
-        // And finally the new eigenvectors
+        //  eigenvectors
         r_ik = R(i, k);
         r_il = R(i, l);
         R(i, k) = c * r_ik - s * r_il;
