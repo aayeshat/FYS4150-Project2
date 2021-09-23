@@ -1,10 +1,9 @@
 #include "tridiagonal.hpp"
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <iomanip>
 #include <armadillo>
-#include <cmath>
+
 
 using namespace arma;
 using namespace std;
@@ -26,26 +25,17 @@ int main()
   mat A = create_tridiagonal(n, a, d, e);
   A.print("A = ");
 
+  mat I = A.t() * A; // generate a symmetric matrix
+
+  I.print("I = ");
+
   vec eigval;
   mat eigvec;
 
   eig_sym(eigval, eigvec, A);
 
-  eigval.print("eigenvalues = ");
-  eigvec.print("eigvectors = ");
-  //norm_eigenvec.print("normalised eigenvectors =");
-
-  //Analytical solutions to eigenvalues
-  double pi = 3.14159265358979323846;
-  double cos_arg = pi/(n + 1.0);
-
-  //Eigenvectors
-  for (int i = 0; i < n ; ++i){
-    vec eigvals_analytical = vec(n);
-    eigvals_analytical(i) = d(i) + 2*a(i)*cos((cos_arg)*(i + 1));
-  cout << "analytical =" << endl << eigvals_analytical << endl;
-  //eigvals_analytical.print("Analytical eigenvalues = ");
-  }
+  eigval.print("eigval = ");
+  eigvec.print("eigvec = ");
 
   return 0;
 }

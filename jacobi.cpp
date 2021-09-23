@@ -1,3 +1,6 @@
+#include "tridiagonal.hpp"
+#include "max_offdiag.hpp"
+#include "jacobi_rotate.hpp"
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -8,6 +11,7 @@
 using namespace arma;
 using namespace std;
 
+<<<<<<< HEAD
 // mat create_jacobional(int n, const vec &a, const vec &d, const vec &e)
 // {
 //     // Start from identity matrix
@@ -116,6 +120,8 @@ void jacobi_rotate(arma::mat &A, arma::mat &R, int k, int l)
     }
     return;
 } // end of function jacobi_rotate
+=======
+>>>>>>> e61816766f769bc7228fc3a02462c8dae527d5d5
 
 int main()
 {
@@ -125,7 +131,7 @@ int main()
     vec a = vec(n - 1).fill(-1.);
     vec d = vec(n).fill(2.);
     vec e = vec(n - 1).fill(-1.);
-    mat A = create_jacobional(n, a, d, e);
+    mat A = create_tridiagonal(n, a, d, e);
     mat I = A.t() * A;
     vec eigval;
     mat R;
@@ -165,6 +171,3 @@ int main()
     R.print("R = ");
     return 0;
 }
-
-
-//g++ -c jacobi.cpp -std=c++11 && g++ -o jacobi.out jacobi.o -larmadillo && ./jacobi.out
