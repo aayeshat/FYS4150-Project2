@@ -8,61 +8,61 @@
 using namespace arma;
 using namespace std;
 
-mat create_jacobional(int n, const vec &a, const vec &d, const vec &e)
-{
-    // Start from identity matrix
-    mat A = mat(n, n, fill::eye);
-
-    for (int i = 0; i < n - 1; i++)
-    {
-        A(i, i) = d(i);
-        A(i, i + 1) = e(i);
-        A(i + 1, i) = a(i);
-    }
-    A(n - 1, n - 1) = d(n - 1);
-    return A;
-}
-
-<<<<<<< HEAD
-double max_offdiag_symmetric(arma::mat &A, int &k, int &l)
-=======
-arma::mat create_tridiagonal(int n, double a, double d, double e)
->>>>>>> d0c695ade7c1bf048564da94a2e8bf2676616562
-{
-    arma::vec a_vec = arma::vec(n - 1, arma::fill::ones) * a;
-    arma::vec d_vec = arma::vec(n, arma::fill::ones) * d;
-    arma::vec e_vec = arma::vec(n - 1, arma::fill::ones) * e;
-    return create_tridiagonal(n, a_vec, d_vec, e_vec);
-}
-
-double max_offdiag_symmetric(arma::mat A, int &k, int &l)
-{
-
-    assert(A.is_square());
-    int n = sqrt(A.size());
-
-    //assigning minimum value to variable
-    double maxval = -1;
-    for (int i = 0; i < n; ++i)
-    {
-        for (int j = i + 1; j < n; ++j)
-        {
-            double aij = fabs(A(i, j));
-            if (aij > maxval)
-            {
-<<<<<<< HEAD
-                max = aij;
-=======
-                maxval = aij;
->>>>>>> d0c695ade7c1bf048564da94a2e8bf2676616562
-                k = i;
-                l = j;
-            }
-        }
-    }
-
-    return maxval;
-}
+// mat create_jacobional(int n, const vec &a, const vec &d, const vec &e)
+// {
+//     // Start from identity matrix
+//     mat A = mat(n, n, fill::eye);
+//
+//     for (int i = 0; i < n - 1; i++)
+//     {
+//         A(i, i) = d(i);
+//         A(i, i + 1) = e(i);
+//         A(i + 1, i) = a(i);
+//     }
+//     A(n - 1, n - 1) = d(n - 1);
+//     return A;
+// }
+//
+// <<<<<<< HEAD
+// double max_offdiag_symmetric(arma::mat &A, int &k, int &l)
+// =======
+// arma::mat create_tridiagonal(int n, double a, double d, double e)
+// >>>>>>> d0c695ade7c1bf048564da94a2e8bf2676616562
+// {
+//     arma::vec a_vec = arma::vec(n - 1, arma::fill::ones) * a;
+//     arma::vec d_vec = arma::vec(n, arma::fill::ones) * d;
+//     arma::vec e_vec = arma::vec(n - 1, arma::fill::ones) * e;
+//     return create_tridiagonal(n, a_vec, d_vec, e_vec);
+// }
+//
+// double max_offdiag_symmetric(arma::mat A, int &k, int &l)
+// {
+//
+//     assert(A.is_square());
+//     int n = sqrt(A.size());
+//
+//     //assigning minimum value to variable
+//     double maxval = -1;
+//     for (int i = 0; i < n; ++i)
+//     {
+//         for (int j = i + 1; j < n; ++j)
+//         {
+//             double aij = fabs(A(i, j));
+//             if (aij > maxval)
+//             {
+// <<<<<<< HEAD
+//                 max = aij;
+// =======
+//                 maxval = aij;
+// >>>>>>> d0c695ade7c1bf048564da94a2e8bf2676616562
+//                 k = i;
+//                 l = j;
+//             }
+//         }
+//     }
+//
+//     return maxval;
+// }
 
 void jacobi_rotate(arma::mat &A, arma::mat &R, int k, int l)
 {

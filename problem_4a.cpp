@@ -61,7 +61,6 @@ int main()
     vec e = vec(n - 1).fill(-1.);
     mat A = create_tridiagonal(n, a, d, e);
 
-   
 
     int i = 0;
     int j = 0;
