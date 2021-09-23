@@ -47,3 +47,4 @@ int main()
 }
 
 // g++ -c problem_4b.cpp -std=c++11 && g++ -o problem_4b.out problem_4b.o -larmadillo && ./problem_4b.out
+//g++ -c problem_4a.cpp -std=c++11 && g++ -o problem_4a.out problem_4a.o -larmadillo && ./problem_4a.out
