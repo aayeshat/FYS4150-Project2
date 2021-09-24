@@ -11,7 +11,7 @@
 using namespace arma;
 using namespace std;
 
-mat create_jacobional(int n, const vec &a, const vec &d, const vec &e)
+mat create_matrix(int n, const vec &a, const vec &d, const vec &e)
 {
 
     mat A = mat(n, n, fill::eye);
@@ -26,14 +26,12 @@ mat create_jacobional(int n, const vec &a, const vec &d, const vec &e)
     return A;
 }
 
-   // double max_offdiag_symmetric(arma::mat &A, int &k, int &l)
-
-    arma::mat create_tridiagonal(int n, double a, double d, double e)
+mat create_tridiagonal(int n, double a, double d, double e)
 {
-    arma::vec a_vec = arma::vec(n - 1, arma::fill::ones) * a;
-    arma::vec d_vec = arma::vec(n, arma::fill::ones) * d;
-    arma::vec e_vec = arma::vec(n - 1, arma::fill::ones) * e;
-    return create_tridiagonal(n, a_vec, d_vec, e_vec);
+    vec a_vec = arma::vec(n - 1, arma::fill::ones) * a;
+    vec d_vec = arma::vec(n, arma::fill::ones) * d;
+    vec e_vec = arma::vec(n - 1, arma::fill::ones) * e;
+    return create_matrix(n, a_vec, d_vec, e_vec);
 }
 
 double max_offdiag_symmetric(arma::mat A, int &k, int &l)
@@ -123,37 +121,35 @@ int main()
     double h = 1 / double(n);
     double h_2 = h * h;
 
-    vec a = vec(n - 1).fill(-1.) * (1 / h_2);
-    vec d = vec(n).fill(2.) * (1 / h_2);
-    vec e = vec(n - 1).fill(-1.) * (1 / h_2);
+    double a = -1./h_2;
+    double d = 2./h_2;
+    double e = -1./h_2;
     mat A = create_tridiagonal(n, a, d, e);
-    mat I = A.t() * A;
     vec eigval;
     mat R;
-    eig_sym(eigval, R, I);
+    eig_sym(eigval, R, A);
 
     A.print("A = ");
-    R.print("R = ");
+    normalise(R).print("R_eigsym = ");
 
     int iteration = 0;
     int max_iterations = 1000;
     int i, j;
     double max_offdiag = max_offdiag_symmetric(A, i, j);
 
-    double tolerance = 1E-8;
+    double tolerance = 1E-30;
     cout << "tolerance = " << iteration << endl;
-
+    R = mat(n,n,fill::eye);
     for (int iteration = 0; iteration < max_iterations; iteration++)
     {
 
-        cout << "jacobi_rotate iteration = " << iteration << endl;
-
         jacobi_rotate(A, R, i, j);
         max_offdiag = max_offdiag_symmetric(A, i, j);
-        cout << "max_offdiag ("
-             << "i" << i << "j" << j << ") = " << max_offdiag << endl;
+        // cout << "max_offdiag ("
+        //      << "i" << i << "j" << j << ") = " << max_offdiag << endl;
 
         // jacobi_rotate(A, R, i, j);
+        //cout << "jacobi_rotate iteration = " << iteration << endl;
 
         if (max_offdiag < tolerance)
         {
@@ -162,6 +158,9 @@ int main()
     }
 
     A.print("A = ");
-    R.print("R = ");
+    normalise(R,2,1).print("R = ");
+    vec eigenvals;
+    eigenvals = diagvec(A);
+    eigenvals.print();
     return 0;
 }

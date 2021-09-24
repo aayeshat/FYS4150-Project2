@@ -19,9 +19,9 @@ g++ problem_3a.cpp tridiagonal.cpp -larmadillo
 
 `g++ problem_4b.cpp tridiagonal.cpp max_offdiag.cpp -larmadillo`
 
-### problem jacobi_rotate
+### problem 5
 
-`g++ jacobi.cpp tridiagonal.cpp max_offdiag.cpp jacobi_rotate.cpp -larmadillo`
+`g++ problem_5.cpp tridiagonal.cpp max_offdiag.cpp jacobi_rotate.cpp -larmadillo`
 
 #### mac compiler 
 
