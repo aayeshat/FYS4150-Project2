@@ -8,16 +8,41 @@
 
 using namespace arma;
 using namespace std;
+/*
+mat create_tridiagonal(int n, const vec &a, const vec &d, const vec &e)
+{
+  // Start from identity matrix
+  mat A = mat(n, n, fill::eye);
+
+  for (int i = 0; i < n - 1; i++)
+  {
+    A(i, i) = d(i);
+    A(i, i + 1) = e(i);
+    A(i + 1, i) = a(i);
+  }
+  A(n - 1, n - 1) = d(n - 1);
+  return A;
+}
 
 
+mat create_tridiagonal(int n, double a, double d, double e)
+{
+  vec a_vec = vec(n - 1, fill::ones) * a;
+  vec d_vec = vec(n, fill::ones) * d;
+  vec e_vec = vec(n - 1, fill::ones) * e;
+  return create_tridiagonal(n, a_vec, d_vec, e_vec);
+}
+
+*/
 int main()
 {
 
   int n = 6;
-
-  vec a = vec(n - 1).fill(-1.);
-  vec d = vec(n).fill(2.);
-  vec e = vec(n - 1).fill(-1.);
+  double h = 1/double(n);
+  double h_2 = h*h;
+  double a = -1./h_2;
+  double d = 2./h_2;
+  double e = -1./h_2;
 
   // - all n-1 elements on the subdiagonal have value a
   // - all n elements on the diagonal have value d
@@ -37,15 +62,28 @@ int main()
 
   //Analytical solutions to eigenvalues
   double pi = 3.14159265358979323846;
-  double cos_arg = pi/(n + 1.0);
+  double arg = pi/(n + 1.0);
 
-  //Eigenvectors
+  vec eigvals_analytical = vec(n);
+  //Eigenvalues
   for (int i = 0; i < n ; ++i){
-    vec eigvals_analytical = vec(n);
-    eigvals_analytical(i) = d(i) + 2*a(i)*cos((cos_arg)*(i + 1));
-  cout << "analytical =" << endl << eigvals_analytical << endl;
-  //eigvals_analytical.print("Analytical eigenvalues = ");
+    eigvals_analytical(i) = d + 2*a*cos((arg)*(i + 1));
+  cout << "analytical = " << eigvals_analytical(i) << endl;
   }
 
-  return 0;
+  //eigenvectors
+  mat eigvec_analytical = mat(n,n);
+  for (int i = 0; i < n; ++i)
+  {
+    for (int j = 0; j < n; ++j)
+    {
+      eigvec_analytical(i,j) = sin(arg*(i+1)*(j+1));
+    }
+  }
+  normalise(eigvec_analytical).print();
+//
+//
+return 0;
 }
+
+//g++ -c eigensystem.cpp -std=c++11 && g++ -o eigensystem.out eigensystem.o -larmadillo && ./eigensystem.out

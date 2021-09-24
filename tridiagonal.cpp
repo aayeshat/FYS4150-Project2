@@ -26,20 +26,3 @@ mat create_tridiagonal(int n, double a, double d, double e)
   vec e_vec = vec(n - 1, fill::ones) * e;
   return create_tridiagonal(n, a_vec, d_vec, e_vec);
 }
-mat A = create_tridiagonal(n, a, d, e)
-{
-
-  int n = 6;
-  double h = 1 / double(n);
-  double h_2 = h * h;
-
-  vec a = vec(n - 1).fill(-1.) * (1 / h_2);
-  vec d = vec(n).fill(2.) * (1 / h_2);
-  vec e = vec(n - 1).fill(-1.) * (1 / h_2);
-
-
-  mat A = create_tridiagonal(n, a, d, e);
-  A.print("A = ");
-  
-  return  create_tridiagonal(n, a, d, e);
-}
