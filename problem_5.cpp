@@ -18,9 +18,9 @@ int main()
     double h = 1 / double(n);
     double h_2 = h * h;
 
-    double a = -1./h_2;
-    double d = 2./h_2;
-    double e = -1./h_2;
+    double a = -1. / h_2;
+    double d = 2. / h_2;
+    double e = -1. / h_2;
     mat A = create_tridiagonal(n, a, d, e);
     vec eigval;
     mat R;
@@ -36,7 +36,7 @@ int main()
 
     double tolerance = 1E-30;
     cout << "tolerance = " << iteration << endl;
-    R = mat(n,n,fill::eye);
+    R = mat(n, n, fill::eye);
     for (int iteration = 0; iteration < max_iterations; iteration++)
     {
 
@@ -55,10 +55,9 @@ int main()
     }
 
     A.print("A = ");
-    normalise(R,2,1).print("R = ");
+    normalise(R, 2, 1).print("R = ");
     vec eigenvals;
     eigenvals = diagvec(A);
     eigenvals.print("Eigenvalues");
     return 0;
 }
-
