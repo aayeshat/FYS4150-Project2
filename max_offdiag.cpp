@@ -10,7 +10,7 @@ double max_offdiag_symmetric(mat A, int &k, int &l)
     assert(A.is_square());
 
     int n = sqrt(A.size());
-    cout << "n = " << n << endl;
+    //cout << "n = " << n << endl;
 
     //assigning minimum value to variable
     double maxval = -1;
