@@ -11,12 +11,34 @@
 using namespace arma;
 using namespace std;
 
+vec matric_to_vector(int n, mat R, int vec_index)
+{
+    vec v = vec(n);
+
+    for (int i = 0; i < n; i++)
+    {
+        int matrix_index = ((vec_index + 1) * n) + i;
+        v(i) = R(matrix_index);
+    }
+    return v;
+}
+
 int main()
 {
+    int width = 12;
+    int prec = 4;
 
     int n = 10;
     double h = 1 / double(n);
     double h_2 = h * h;
+
+    vec x = arma::vec(n);
+    x(0) = 0;
+    for (int i = 1; i < n; i++)
+    {
+        x(i) = x(0) + i * h;
+    }
+    x.print("X =");
 
     double a = -1. / h_2;
     double d = 2. / h_2;
@@ -42,11 +64,6 @@ int main()
 
         jacobi_rotate(A, R, i, j);
         max_offdiag = max_offdiag_symmetric(A, i, j);
-        // cout << "max_offdiag ("
-        //      << "i" << i << "j" << j << ") = " << max_offdiag << endl;
-
-        // jacobi_rotate(A, R, i, j);
-        //cout << "jacobi_rotate iteration = " << iteration << endl;
 
         if (max_offdiag < tolerance)
         {
@@ -55,12 +72,15 @@ int main()
     }
 
     A.print("A = ");
-    normalise(R, 2, 1).print("R = ");
-    vec eigenvals;
-    eigenvals = diagvec(A);
-    eigenvals.print("Eigenvalues");
+    vec eigenvals = diagvec(A);
+    eigenvals.print("Eigenvalues = ");
 
-    cout << "Minimum eigen values" << endl;
+    //normalise(R, 2, 1).print("Eigen vector = ");
+    R.print("Eigen vector = ");
+
+    cout << endl
+         << "Minimum eigen values" << endl
+         << endl;
     uvec sort_indexes = sort_index(eigenvals);
 
     for (int s = n - 1; s >= n - 3; s--)
@@ -69,6 +89,17 @@ int main()
         double eigenval = eigenvals(index);
 
         cout << "index " << index << " --- eigen value " << scientific << eigenval << endl;
+        vec v = matric_to_vector(n, R, index);
+        //v.print("V =");
+
+        for (int i = 0; i < n; i++)
+        {
+            cout << std::setw(width) << std::setprecision(prec) << std::scientific << x(i)
+                 << std::setw(width) << std::setprecision(prec) << std::scientific << v(i)
+                 << std::endl;
+        }
+
+        cout << endl;
     }
 
     return 0;
