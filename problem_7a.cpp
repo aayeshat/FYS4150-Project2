@@ -14,8 +14,11 @@ using namespace std;
 int main()
 {
 
-    int n = 6;
-    double h = 1 / double(n);
+    int n = 10;
+    double x_min = 0;
+    double x_max = 1;
+
+    double h = x_max - x_min/ double(n);
     double h_2 = h * h;
 
     double a = -1. / h_2;
@@ -58,6 +61,7 @@ int main()
     normalise(R, 2, 1).print("R = ");
     vec eigenvals;
     eigenvals = diagvec(A);
-    eigenvals.print();
+    eigenvals.print("Eigenvalues");
+
     return 0;
 }

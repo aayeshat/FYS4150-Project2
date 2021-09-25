@@ -18,9 +18,9 @@ int main()
     double h = 1 / double(n);
     double h_2 = h * h;
 
-    double a = -1. / h_2;
-    double d = 2. / h_2;
-    double e = -1. / h_2;
+    double a = -1./h_2;
+    double d = 2./h_2;
+    double e = -1./h_2;
     mat A = create_tridiagonal(n, a, d, e);
     vec eigval;
     mat R;
@@ -35,18 +35,18 @@ int main()
     double max_offdiag = max_offdiag_symmetric(A, i, j);
 
     double tolerance = 1E-30;
-    cout << "iterations = " << iteration << endl;
-    R = mat(n, n, fill::eye);
+    cout << "tolerance = " << iteration << endl;
+    R = mat(n,n,fill::eye);
     for (int iteration = 0; iteration < max_iterations; iteration++)
     {
 
         jacobi_rotate(A, R, i, j);
         max_offdiag = max_offdiag_symmetric(A, i, j);
-        cout << "max_offdiag ("
-              << "i" << i << "j" << j << ") = " << max_offdiag << endl;
+        // cout << "max_offdiag ("
+        //      << "i" << i << "j" << j << ") = " << max_offdiag << endl;
 
-         jacobi_rotate(A, R, i, j);
-        cout << "jacobi_rotate iteration = " << iteration << endl;
+        // jacobi_rotate(A, R, i, j);
+        //cout << "jacobi_rotate iteration = " << iteration << endl;
 
         if (max_offdiag < tolerance)
         {
@@ -55,9 +55,10 @@ int main()
     }
 
     A.print("A = ");
-    normalise(R, 2, 1).print("R = ");
+    normalise(R,2,1).print("R = ");
     vec eigenvals;
     eigenvals = diagvec(A);
-    eigenvals.print();
+    eigenvals.print("Eigenvalues");
     return 0;
 }
+
