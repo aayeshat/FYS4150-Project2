@@ -85,6 +85,7 @@ int main()
 
     for (int s = n - 1; s >= n - 3; s--)
     {
+
         int index = sort_indexes(s);
         double eigenval = eigenvals(index);
 
@@ -92,13 +93,22 @@ int main()
         vec v = matric_to_vector(n, R, index);
         //v.print("V =");
 
+        string filename = "../out/problem7_minimum_" + to_string(n - s) + ".txt";
+        ofstream ofile;
+        ofile.open(filename);
+
         for (int i = 0; i < n; i++)
         {
             cout << std::setw(width) << std::setprecision(prec) << std::scientific << x(i)
                  << std::setw(width) << std::setprecision(prec) << std::scientific << v(i)
                  << std::endl;
+
+            ofile << std::setw(width) << std::setprecision(prec) << std::scientific << x(i)
+                  << std::setw(width) << std::setprecision(prec) << std::scientific << v(i)
+                  << std::endl;
         }
 
+        ofile.close();
         cout << endl;
     }
 
