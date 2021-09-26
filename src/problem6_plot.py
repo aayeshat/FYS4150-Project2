@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import linregress
 
-n, it = np.loadtxt('n_it.txt', usecols = (0,1), unpack = True, skiprows = 1)
+n, it = np.loadtxt('../out/n_it.txt', usecols = (0,1), unpack = True, skiprows = 1)
 
 n_log = np.log10(n)
 it_log = np.log10(it)
@@ -20,7 +20,7 @@ plt.ticklabel_format(axis="y", style="sci", scilimits=(0,0))
 plt.title('Iterations as function of grid size n = 20, 30, ..., 250.', wrap = True)
 plt.xlabel('n')
 plt.ylabel('Iterations')
-plt.savefig('n_it_plot.pdf')
+plt.savefig('../out/n_it_plot.pdf')
 plt.show()
 
 
@@ -31,7 +31,7 @@ plt.ylabel('Iterations, log10')
 plt.ylim([2.2,5.5])
 plt.xlim([1.2,2.5])
 plt.legend()
-plt.savefig('n_it_logplot.pdf')
+plt.savefig('../out/n_it_logplot.pdf')
 
 plt.show()
 
