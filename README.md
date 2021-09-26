@@ -1,4 +1,4 @@
-# project2
+# FYS4150 Project2
 
 ### problem tridiag
 
@@ -26,6 +26,12 @@
 ### problem 6
 
 `g++ problem6_cana.cpp tridiagonal.cpp max_offdiag.cpp jacobi_rotate.cpp -larmadillo`
+
+`python3 problem6_plot.py`
+
+### problem 7
+
+`g++ problem_7a.cpp tridiagonal.cpp max_offdiag.cpp jacobi_rotate.cpp -larmadillo`
 
 `python3 problem6_plot.py`
 
