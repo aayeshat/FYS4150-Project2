@@ -25,10 +25,8 @@ vec matric_to_vector(int n, mat R, int vec_index)
 
 int main()
 {
-    int width = 12;
-    int prec = 4;
-
     int n = 10;
+
     double h = 1 / double(n);
     double h_2 = h * h;
 
@@ -83,6 +81,7 @@ int main()
          << endl;
     uvec sort_indexes = sort_index(eigenvals);
 
+    vec v[3];
     for (int s = n - 1; s >= n - 3; s--)
     {
 
@@ -90,27 +89,34 @@ int main()
         double eigenval = eigenvals(index);
 
         cout << "index " << index << " --- eigen value " << scientific << eigenval << endl;
-        vec v = matric_to_vector(n, R, index);
+        vec indexV = matric_to_vector(n, R, index);
+        v[n - s - 1] = indexV;
         //v.print("V =");
 
-        string filename = "../out/problem7_minimum_" + to_string(n - s) + ".txt";
-        ofstream ofile;
-        ofile.open(filename);
-
-        for (int i = 0; i < n; i++)
-        {
-            cout << std::setw(width) << std::setprecision(prec) << std::scientific << x(i)
-                 << std::setw(width) << std::setprecision(prec) << std::scientific << v(i)
-                 << std::endl;
-
-            ofile << std::setw(width) << std::setprecision(prec) << std::scientific << x(i)
-                  << std::setw(width) << std::setprecision(prec) << std::scientific << v(i)
-                  << std::endl;
-        }
-
-        ofile.close();
         cout << endl;
     }
 
+    int width = 12;
+    int prec = 4;
+    string filename = "../out/problem7_n" + to_string(n) + ".txt";
+    ofstream ofile;
+    ofile.open(filename);
+
+    for (int i = 0; i < n; i++)
+    {
+        cout << std::setw(width) << std::setprecision(prec) << std::scientific << x(i)
+             << std::setw(width) << std::setprecision(prec) << std::scientific << v[0](i)
+             << std::setw(width) << std::setprecision(prec) << std::scientific << v[1](i)
+             << std::setw(width) << std::setprecision(prec) << std::scientific << v[2](i)
+             << std::endl;
+
+        ofile << std::setw(width) << std::setprecision(prec) << std::scientific << x(i)
+              << std::setw(width) << std::setprecision(prec) << std::scientific << v[0](i)
+              << std::setw(width) << std::setprecision(prec) << std::scientific << v[1](i)
+              << std::setw(width) << std::setprecision(prec) << std::scientific << v[2](i)
+              << std::endl;
+    }
+
+    ofile.close();
     return 0;
 }
