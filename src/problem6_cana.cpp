@@ -70,20 +70,19 @@ int main()
       //cout << "jacobi_rotate iteration = " << iteration << endl;
     }
     n += 10 - 1;
+
+     cout << std::setw(width) << std::setprecision(prec) << std::scientific << n
+          << std::setw(width) << std::setprecision(prec) << std::scientific << total_iterations
+          << std::endl;
+
     ofile << std::setw(width) << std::setprecision(prec) << std::scientific << n
           << std::setw(width) << std::setprecision(prec) << std::scientific << total_iterations
           << std::endl;
-    // cout << "n = " << n << endl;
-    // cout << total_iterations << endl;
+
   }
 
   ofile.close();
 
-  // A.print("A = ");
-  //normalise(R,2,1).print("R = ");
-  // vec eigenvals;
-  // eigenvals = diagvec(A);
-  // eigenvals.print("Eigenvectors = ");
   return 0;
 }
 
