@@ -32,6 +32,7 @@
 ### problem 7
 
 `g++ problem_7a.cpp tridiagonal.cpp max_offdiag.cpp jacobi_rotate.cpp problem_7.cpp -larmadillo && ./a.out`
+
 `g++ problem_7b.cpp tridiagonal.cpp max_offdiag.cpp jacobi_rotate.cpp problem_7.cpp -larmadillo && ./a.out`
 
 `python3 problem6_plot.py`
