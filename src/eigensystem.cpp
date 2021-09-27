@@ -65,13 +65,15 @@ int main()
   double arg = pi/(n + 1.0);
 
   vec eigvals_analytical = vec(n);
+
   //Eigenvalues
   for (int i = 0; i < n ; ++i){
     eigvals_analytical(i) = d + 2*a*cos((arg)*(i + 1));
-  cout << "analytical = " << eigvals_analytical(i) << endl;
+  cout << "analytical = " << endl;
+  cout << eigvals_analytical(i) << std::scientific << endl;
   }
 
-  //eigenvectors
+  //Eigenvectors
   mat eigvec_analytical = mat(n,n);
   for (int i = 0; i < n; ++i)
   {
@@ -86,4 +88,4 @@ int main()
 return 0;
 }
 
-//g++ -c eigensystem.cpp -std=c++11 && g++ -o eigensystem.out eigensystem.o -larmadillo && ./eigensystem.out
+//g++ -c eigensystem_cana.cpp -std=c++11 && g++ -o eigensystem_cana.out eigensystem_cana.o -larmadillo && ./eigensystem_cana.out

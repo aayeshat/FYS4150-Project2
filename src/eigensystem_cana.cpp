@@ -64,14 +64,19 @@ int main()
   double pi = 3.14159265358979323846;
   double arg = pi/(n + 1.0);
 
+  int width = 12;
+  int prec = 4;
+
+
   vec eigvals_analytical = vec(n);
+
   //Eigenvalues
   for (int i = 0; i < n ; ++i){
     eigvals_analytical(i) = d + 2*a*cos((arg)*(i + 1));
-  cout << "analytical = " << eigvals_analytical(i) << endl;
+    cout << setw(width) << setprecision(prec) << std::scientific << eigvals_analytical(i) << endl;
   }
 
-  //eigenvectors
+  //Eigenvectors
   mat eigvec_analytical = mat(n,n);
   for (int i = 0; i < n; ++i)
   {
