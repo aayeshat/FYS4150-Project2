@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-n = 10
+n = 100
 
 x, v1, v2, v3 = np.loadtxt(
     "../out/problem7_n" + str(n) + ".txt",

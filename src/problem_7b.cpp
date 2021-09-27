@@ -25,7 +25,7 @@ vec matric_to_vector(int n, mat R, int vec_index)
 
 int main()
 {
-    int n = 10;
+    int n = 100;
 
     double h = 1 / double(n);
     double h_2 = h * h;
@@ -50,7 +50,7 @@ int main()
     normalise(R).print("R_eigsym = ");
 
     int iteration = 0;
-    int max_iterations = 1000;
+    int max_iterations = 24000;
     int i, j;
     double max_offdiag = max_offdiag_symmetric(A, i, j);
 
