@@ -8,7 +8,7 @@
 
 using namespace arma;
 using namespace std;
-
+/*
 mat create_tridiagonal(int n, const vec &a, const vec &d, const vec &e)
 {
   // Start from identity matrix
@@ -33,7 +33,7 @@ mat create_tridiagonal(int n, double a, double d, double e)
   return create_tridiagonal(n, a_vec, d_vec, e_vec);
 }
 
-
+*/
 int main()
 {
 
@@ -56,28 +56,22 @@ int main()
 
   eig_sym(eigval, eigvec, A);
 
-  eigval.print("Armadillo eigenvalues = ");
-  eigvec.print("Armadillo eigenvectors = ");
+  eigval.print("eigenvalues = ");
+  eigvec.print("eigvectors = ");
   //norm_eigenvec.print("normalised eigenvectors =");
 
   //Analytical solutions to eigenvalues
   double pi = 3.14159265358979323846;
   double arg = pi/(n + 1.0);
 
-  int width = 12;
-  int prec = 4;
-
-
   vec eigvals_analytical = vec(n);
-
   //Eigenvalues
   for (int i = 0; i < n ; ++i){
     eigvals_analytical(i) = d + 2*a*cos((arg)*(i + 1));
-    //cout << setw(width) << setprecision(prec) << std::scientific << eigvals_analytical(i) << endl;
+  cout << "analytical = " << eigvals_analytical(i) << endl;
   }
-  eigvals_analytical.print("Analytical eigenvalues = ");
 
-  //Eigenvectors
+  //eigenvectors
   mat eigvec_analytical = mat(n,n);
   for (int i = 0; i < n; ++i)
   {
@@ -86,10 +80,10 @@ int main()
       eigvec_analytical(i,j) = sin(arg*(i+1)*(j+1));
     }
   }
-  normalise(eigvec_analytical).print("Analytical eigenvectors = ");
+  normalise(eigvec_analytical).print();
 //
 //
 return 0;
 }
 
-//g++ -c eigensystem_cana.cpp -std=c++11 && g++ -o eigensystem_cana.out eigensystem_cana.o -larmadillo && ./eigensystem_cana.out
+//g++ -c eigensystem.cpp -std=c++11 && g++ -o eigensystem.out eigensystem.o -larmadillo && ./eigensystem.out
