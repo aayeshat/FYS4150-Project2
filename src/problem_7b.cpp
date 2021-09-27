@@ -11,6 +11,7 @@
 using namespace arma;
 using namespace std;
 
+
 vec matric_to_vector(int n, mat R, int vec_index)
 {
     vec v = vec(n);

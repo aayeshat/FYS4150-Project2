@@ -50,7 +50,7 @@ int main()
     normalise(R).print("R_eigsym = ");
 
     int iteration = 0;
-    int max_iterations = 1000;
+    int max_iterations = 25000;
     int i, j;
     double max_offdiag = max_offdiag_symmetric(A, i, j);
 
