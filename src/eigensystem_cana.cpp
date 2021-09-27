@@ -56,8 +56,8 @@ int main()
 
   eig_sym(eigval, eigvec, A);
 
-  eigval.print("eigenvalues = ");
-  eigvec.print("eigvectors = ");
+  eigval.print("Armadillo eigenvalues = ");
+  eigvec.print("Armadillo eigenvectors = ");
   //norm_eigenvec.print("normalised eigenvectors =");
 
   //Analytical solutions to eigenvalues
@@ -73,8 +73,9 @@ int main()
   //Eigenvalues
   for (int i = 0; i < n ; ++i){
     eigvals_analytical(i) = d + 2*a*cos((arg)*(i + 1));
-    cout << setw(width) << setprecision(prec) << std::scientific << eigvals_analytical(i) << endl;
+    //cout << setw(width) << setprecision(prec) << std::scientific << eigvals_analytical(i) << endl;
   }
+  eigvals_analytical.print("Analytical eigenvalues = ");
 
   //Eigenvectors
   mat eigvec_analytical = mat(n,n);
@@ -85,10 +86,10 @@ int main()
       eigvec_analytical(i,j) = sin(arg*(i+1)*(j+1));
     }
   }
-  normalise(eigvec_analytical).print();
+  normalise(eigvec_analytical).print("Analytical eigenvectors = ");
 //
 //
 return 0;
 }
 
-//g++ -c eigensystem.cpp -std=c++11 && g++ -o eigensystem.out eigensystem.o -larmadillo && ./eigensystem.out
+//g++ -c eigensystem_cana.cpp -std=c++11 && g++ -o eigensystem_cana.out eigensystem_cana.o -larmadillo && ./eigensystem_cana.out

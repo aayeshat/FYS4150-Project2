@@ -131,6 +131,7 @@ int main()
 
     A.print("A = ");
     normalise(R).print("R_eigsym = ");
+    eigval.print("Eigenvalues_eigsym = ");
 
     int iteration = 0;
     int max_iterations = 1000;
@@ -138,19 +139,12 @@ int main()
     double max_offdiag = max_offdiag_symmetric(A, i, j);
 
     double tolerance = 1E-30;
-    //cout << "tolerance = " << iteration << endl;
     R = mat(n,n,fill::eye);
     for (int iteration = 0; iteration < max_iterations; iteration++)
     {
 
         jacobi_rotate(A, R, i, j);
         max_offdiag = max_offdiag_symmetric(A, i, j);
-        // cout << "max_offdiag ("
-        //      << "i" << i << "j" << j << ") = " << max_offdiag << endl;
-
-        // jacobi_rotate(A, R, i, j);
-        //cout << "jacobi_rotate iteration = " << iteration << endl;
-
         if (max_offdiag < tolerance)
         {
             break;
